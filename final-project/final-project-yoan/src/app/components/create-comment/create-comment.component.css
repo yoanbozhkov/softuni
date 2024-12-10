@@ -1,0 +1,74 @@
+.create-comment-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    background-color: #fff;
+    margin: 0;
+  }
+  
+  .create-comment-form {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+  }
+  
+  .create-comment-form h2 {
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    color: #333;
+  }
+  
+  .create-comment-form label {
+    display: block;
+    text-align: left;
+    font-size: 0.9rem;
+    margin: 10px 0 5px;
+    color: #666;
+  }
+  
+  .create-comment-form input,
+  .create-comment-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .create-comment-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .create-comment-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  .cancel-link {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: #333;
+  }
+  
+  .cancel-link a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .cancel-link a:hover {
+    text-decoration: underline;
+  }
+  
