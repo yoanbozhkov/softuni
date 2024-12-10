@@ -1,8 +1,8 @@
 <div class="post-container">
-    <h1 class="post-title">{{ postTitle }}</h1>
+    <h1 class="post-title">{{ post.title }}</h1>
     
     <!-- Post description -->
-    <p class="post-description">{{ postDescription }}</p>
+    <p class="post-description">{{ post.description }}</p>
   
     <div class="comments-section">
       <div class="create-comment-container">
@@ -12,7 +12,7 @@
       <h2>Comments:</h2>
       <div *ngFor="let comment of comments; let i = index" class="comment-container">
         <div class="comment-box">
-          <p class="comment-text">{{ comment }}</p>
+          <p class="comment-text">{{ comment.content }}</p>
           <div class="comment-actions">
             <button  class="edit-btn">✎</button>
             <button  class="delete-btn">🗑️</button>

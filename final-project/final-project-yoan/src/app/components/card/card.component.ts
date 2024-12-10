@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { PostService } from '../../post.service';
+import { Post } from '../../types/post';
 
 @Component({
   selector: 'app-card',
@@ -10,6 +12,11 @@ import { RouterLink } from '@angular/router';
   styleUrl: './card.component.css',
 })
 export class CardComponent {
-  @Input() title: string = '';
-  @Input() description: string = '';
+  constructor(
+    private postService: PostService,
+    private route: ActivatedRoute
+  ) {}
+
+  @Input()
+  post!: Post;
 }

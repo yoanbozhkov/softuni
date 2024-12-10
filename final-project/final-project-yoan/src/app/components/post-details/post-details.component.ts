@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { PostService } from '../../post.service';
+import { Comment } from '../../types/comment';
+import { Post } from '../../types/post';
 
 @Component({
   selector: 'app-post-details',
@@ -9,12 +12,25 @@ import { RouterLink } from '@angular/router';
   templateUrl: './post-details.component.html',
   styleUrl: './post-details.component.css',
 })
-export class PostDetailsComponent {
-  postTitle: string = 'Sample Post Title';
-  postDescription: string = 'Sample Post Title';
-  comments: string[] = [
-    'This is a comment.',
-    "Here's another comment.",
-    'I really like this post!',
-  ];
+export class PostDetailsComponent implements OnInit {
+  comments: Comment[] = [];
+  post!: Post;
+  constructor(
+    private route: ActivatedRoute,
+    private postService: PostService
+  ) {}
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((params) => {
+      const postId = params.get('postId') ?? '';
+      if (postId) {
+        this.postService.getPostById(postId).subscribe((post) => {
+          this.post = post;
+        });
+        this.postService.getCommentsForPost(postId).subscribe((comments) => {
+          this.comments = comments;
+        });
+      }
+    });
+  }
 }
