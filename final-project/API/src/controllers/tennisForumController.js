@@ -4,7 +4,7 @@ const tennisForumService = require("../services/tennisForumService");
 const router = require("express").Router();
 
 // Get Latest Posts
-router.get("/latest", async (res) => {
+router.get("/latest", async (_req, res) => {
   try {
     const latestPosts = await tennisForumService.getLatestPosts();
     res.status(200).send(latestPosts);
@@ -13,8 +13,19 @@ router.get("/latest", async (res) => {
   }
 });
 
+// Get single Post
+router.get("/:id/", async (req, res) => {
+  const postId = req.params.id;
+  try {
+    const commentsForPost = await tennisForumService.getPostById(postId);
+    res.status(200).send(commentsForPost);
+  } catch (error) {
+    res.status(400).send({ message: error.message });
+  }
+});
+
 // Get Comments for a single Post
-router.get("/:id/comments", isAuth, async (req, res) => {
+router.get("/:id/comments", async (req, res) => {
   const postId = req.params.id;
   try {
     const commentsForPost = await tennisForumService.getCommentsForPost(postId);

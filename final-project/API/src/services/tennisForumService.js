@@ -2,12 +2,12 @@ const Post = require("../model/Post");
 const Comment = require("../model/Comment");
 
 const getLatestPosts = async () => {
-  return await Post.find().sort({ created_at: -1 }).limit(10).populate();
+  return await Post.find().sort({ created_at: -1 }).limit(9).populate();
 };
 
 const getCommentsForPost = async (postId) => {
-  const comments = await Post.find({ postComments: postId });
-  return comments;
+  const post = await Post.findById(postId).populate("postComments");
+  return post.postComments;
 };
 
 const getCommentById = async (id) => {
