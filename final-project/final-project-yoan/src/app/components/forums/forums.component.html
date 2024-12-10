@@ -1,1 +1,7 @@
-<p>forums works!</p>
+<div class="wrapper">
+    <button class="create-post-button" routerLink="/create-post" routerLinkActive="active">Create Post</button>
+    <div class="card-container">
+      <app-card *ngFor="let card of cards" [title]="card.title" [description]="card.description"></app-card>
+    </div>
+  </div>
+  
