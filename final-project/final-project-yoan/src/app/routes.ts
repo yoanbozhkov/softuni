@@ -11,8 +11,16 @@ import { CreateCommentComponent } from './components/create-comment/create-comme
 export const appRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomePageComponent },
-  { path: 'forums', component: ForumsComponent },
-  { path: 'about', component: PostDetailsComponent },
+  {
+    path: 'post',
+    children: [
+      { path: '', component: ForumsComponent },
+      {
+        path: ':postId',
+        component: PostDetailsComponent,
+      },
+    ],
+  },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'create-post', component: CreatePostComponent },
