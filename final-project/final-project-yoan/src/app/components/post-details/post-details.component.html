@@ -1,0 +1,25 @@
+<div class="post-container">
+    <h1 class="post-title">{{ postTitle }}</h1>
+    
+    <!-- Post description -->
+    <p class="post-description">{{ postDescription }}</p>
+  
+    <div class="comments-section">
+      <div class="create-comment-container">
+        <button  class="create-comment-btn" routerLink="/create-comment" routerLinkActive="active" >Create Comment</button>
+      </div>
+  
+      <h2>Comments:</h2>
+      <div *ngFor="let comment of comments; let i = index" class="comment-container">
+        <div class="comment-box">
+          <p class="comment-text">{{ comment }}</p>
+          <div class="comment-actions">
+            <button  class="edit-btn">✎</button>
+            <button  class="delete-btn">🗑️</button>
+          </div>
+        </div>
+        <hr>
+      </div>
+    </div>
+  </div>
+  
