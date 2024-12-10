@@ -14,10 +14,15 @@ const postsSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
+    postComments: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment",
+      },
+    ],
   },
   { timestamps: { createdAt: "created_at" } }
 );
 
-const Posts = mongoose.model("Posts", postsSchema);
-
-module.exports = Posts;
+const Post = mongoose.model("Post", postsSchema);
+module.exports = Post;

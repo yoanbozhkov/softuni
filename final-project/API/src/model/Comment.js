@@ -11,16 +11,13 @@ const commentsSchema = new mongoose.Schema(
       ref: "User",
     },
     commentForPost: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Posts",
-      },
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Post",
+    },
   },
   { timestamps: { createdAt: "created_at" } }
 );
 
-const Comments = mongoose.model(
-  "Comments",
-  commentsSchema
-);
+const Comment = mongoose.model("Comment", commentsSchema);
 
-module.exports = Comments;
+module.exports = Comment;
