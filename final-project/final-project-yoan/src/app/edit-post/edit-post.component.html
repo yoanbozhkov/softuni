@@ -1,0 +1,32 @@
+<div class="edit-post-container">
+  <form class="edit-post-form" (ngSubmit)="updatePost(post._id)">
+    <h2>Edit Post</h2>
+
+    <label for="title">Title</label>
+    <input
+      type="text"
+      id="title"
+      name="title"
+      [(ngModel)]="post.title"
+      placeholder="Enter post title"
+      required
+    />
+
+    <label for="description">Description</label>
+    <textarea
+      id="description"
+      name="description"
+      [(ngModel)]="post.description"
+      placeholder="Enter post description"
+      required
+      rows="4"
+    ></textarea>
+
+    <button type="submit">Update Post</button>
+
+    <p class="cancel-link">
+      Want to go back?
+      <a routerLink="/forums" routerLinkActive="active" aria-label="Go back to forums">Cancel</a>
+    </p>
+  </form>
+</div>

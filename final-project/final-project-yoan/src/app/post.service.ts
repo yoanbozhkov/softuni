@@ -23,4 +23,43 @@ export class PostService {
   getPostById(postId: string): Observable<Post> {
     return this.http.get<Post>(`${this.apiUrl}/${postId}`);
   }
+
+  getCommentById(commentId: string): Observable<Comment> {
+    return this.http.get<Comment>(`${this.apiUrl}/comment/${commentId}`);
+  }
+
+  deletePostById(postId: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${postId}`);
+  }
+
+  deleteComment(commentId: string, postId: string): Observable<void> {
+    return this.http.delete<void>(
+      `${this.apiUrl}/${postId}/comments/${commentId}`
+    );
+  }
+
+  createPost(post: { title: string; description: string }): Observable<Post> {
+    return this.http.post<Post>(this.apiUrl, post);
+  }
+
+  createComment(
+    comment: { content: string },
+    postId: string
+  ): Observable<Comment> {
+    return this.http.post<Comment>(`${this.apiUrl}/${postId}/comment`, comment);
+  }
+
+  updatePost(
+    postId: string,
+    post: { title: string; description: string }
+  ): Observable<Post> {
+    return this.http.put<Post>(`${this.apiUrl}/${postId}`, post);
+  }
+
+  updateComment(
+    commentId: string,
+    comment: { content: string }
+  ): Observable<Post> {
+    return this.http.put<Post>(`${this.apiUrl}/comments/${commentId}`, comment);
+  }
 }

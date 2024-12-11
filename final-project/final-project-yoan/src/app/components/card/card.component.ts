@@ -16,7 +16,13 @@ export class CardComponent {
     private postService: PostService,
     private route: ActivatedRoute
   ) {}
-
+  deleted: boolean = false;
   @Input()
   post!: Post;
+
+  deletePost(postId: string) {
+    this.postService.deletePostById(postId).subscribe(() => {
+      this.deleted = true;
+    });
+  }
 }

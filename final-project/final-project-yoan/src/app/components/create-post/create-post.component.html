@@ -1,20 +1,22 @@
 <div class="create-post-container">
-    <form class="create-post-form">
+    <form class="create-post-form" (ngSubmit)="createPost()">
       <h2>Post Details</h2>
       <label for="title">Title</label>
       <input
         type="text"
         id="title"
         name="title"
+        [(ngModel)]="post.title"
         placeholder="Enter post title"
         required
       />
   
-      <label for="content">Content</label>
+      <label for="description">Description</label>
       <textarea
-        id="content"
-        name="content"
-        placeholder="Enter post content"
+        id="description"
+        name="description"
+        [(ngModel)]="post.description"
+        placeholder="Enter post description"
         required
         rows="4"
       ></textarea>

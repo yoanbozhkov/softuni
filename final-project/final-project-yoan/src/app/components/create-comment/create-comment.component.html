@@ -1,11 +1,12 @@
 <div class="create-comment-container">
-    <form class="create-comment-form">
+    <form class="create-comment-form" (ngSubmit)="submitComment()">
       <h2>Create Comment</h2>
       <label for="comment">Comment</label>
       <textarea
         id="comment"
         name="comment"
         placeholder="Enter your comment"
+        [(ngModel)]="comment.content"
         required
         rows="4"
       ></textarea>
@@ -13,7 +14,7 @@
       <button type="submit">Submit Comment</button>
       <p class="cancel-link">
         Want to go back? 
-        <a routerLink="/about" routerLinkActive="active" aria-label="Go back to forums">Cancel</a>
+        <a [routerLink]="['/post', postId, 'comment']" routerLinkActive="active" aria-label="Go back to forums">Cancel</a>
       </p>
     </form>
   </div>
