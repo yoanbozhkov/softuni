@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PostService } from '../../post.service';
 import { FormsModule } from '@angular/forms';
@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './create-comment.component.html',
   styleUrl: './create-comment.component.css',
 })
-export class CreateCommentComponent {
+export class CreateCommentComponent implements OnInit {
   comment = { content: '' };
   postId: string = '';
   constructor(
@@ -17,17 +17,18 @@ export class CreateCommentComponent {
     private router: Router,
     private route: ActivatedRoute
   ) {}
-
-  submitComment() {
+  ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const postId = params.get('postId') ?? '';
       if (postId) {
         this.postId = postId;
-        console.log(postId);
-        this.postService.createComment(this.comment, postId).subscribe(() => {
-          this.router.navigate(['/post', postId, 'comments']);
-        });
       }
+    });
+  }
+
+  submitComment() {
+    this.postService.createComment(this.comment, this.postId).subscribe(() => {
+      this.router.navigate(['/post', this.postId, 'comments']);
     });
   }
 }
