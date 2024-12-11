@@ -1,28 +1,42 @@
 <div class="login-container">
-    <form class="login-form">
-      <h2>Login</h2>
-      <label for="email">Email</label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        placeholder="Enter your email"
-        required
-      />
-  
-      <label for="password">Password</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        placeholder="Enter your password"
-        required
-      />
-  
-      <button type="submit">Login</button>
-      <p class="register-link">
-        Don't have an account? 
-        <a routerLink="/register" routerLinkActive="active" aria-label="Go to registration page">Register here</a>
-      </p>
-    </form>
-  </div>
+  <form class="login-form" #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+    <h2>Login</h2>
+
+    <label for="email">Email</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      placeholder="Enter your email"
+      required
+      ngModel
+      #email="ngModel"
+      [ngClass]="{ 'invalid': email.invalid && email.touched }"
+    />
+    <div *ngIf="email.invalid && email.touched" class="error">
+      <p>Email is required and must be a valid email format.</p>
+    </div>
+
+    <label for="password">Password</label>
+    <input
+      type="password"
+      id="password"
+      name="password"
+      placeholder="Enter your password"
+      required
+      ngModel
+      #password="ngModel"
+      [ngClass]="{ 'invalid': password.invalid && password.touched }"
+    />
+    <div *ngIf="password.invalid && password.touched" class="error">
+      <p>Password is required.</p>
+    </div>
+
+    <button type="submit" [disabled]="loginForm.invalid">Login</button>
+
+    <p class="register-link">
+      Don't have an account? 
+      <a routerLink="/register" routerLinkActive="active" aria-label="Go to registration page">Register here</a>
+    </p>
+  </form>
+</div>

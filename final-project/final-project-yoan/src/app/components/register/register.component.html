@@ -1,65 +1,86 @@
 <div class="register-container">
-    <form class="register-form">
-      <h2>Register</h2>
-  
-      <label for="username">Username</label>
-      <input
-        type="text"
-        id="username"
-        name="username"
-        placeholder="Enter your username"
-        required
-      />
-  
-      <label for="firstName">First Name</label>
-      <input
-        type="text"
-        id="firstName"
-        name="firstName"
-        placeholder="Enter your first name"
-        required
-      />
-  
-      <label for="lastName">Last Name</label>
-      <input
-        type="text"
-        id="lastName"
-        name="lastName"
-        placeholder="Enter your last name"
-        required
-      />
-  
-      <label for="email">Email</label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        placeholder="Enter your email"
-        required
-      />
-  
+  <form #registerForm="ngForm" (ngSubmit)="register(registerForm)" class="register-form">
+    <h2>Register</h2>
+
+    <label for="username">Username</label>
+    <input
+      type="text"
+      id="username"
+      name="username"
+      ngModel
+      #username="ngModel"
+      required
+      minlength="5"
+    />
+    <div *ngIf="isFieldTextMissing(registerForm, 'username')">Username is required.</div>
+    <div *ngIf="username.touched && username.errors?.['minlength']">Username must be at least 5 characters long.</div>
+
+    <label for="email">Email</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      ngModel
+      #email="ngModel"
+      required
+    />
+    <div *ngIf="isFieldTextMissing(registerForm, 'email')">Email is required.</div>
+    <div *ngIf="isEmailNotValid(registerForm)">Email is invalid.</div>
+
+    <label for="firstName">First Name</label>
+    <input
+      type="text"
+      id="firstName"
+      name="firstName"
+      ngModel
+      #firstName="ngModel"
+      required
+    />
+    <div *ngIf="isFieldTextMissing(registerForm, 'firstName')">First Name is required.</div>
+
+    <label for="lastName">Last Name</label>
+    <input
+      type="text"
+      id="lastName"
+      name="lastName"
+      ngModel
+      #lastName="ngModel"
+      required
+    />
+    <div *ngIf="isFieldTextMissing(registerForm, 'lastName')">Last Name is required.</div>
+
+    <div formGroup="passGroup">
       <label for="password">Password</label>
       <input
         type="password"
         id="password"
         name="password"
-        placeholder="Enter your password"
+        ngModel
+        #password="ngModel"
         required
+        minlength="5"
       />
-  
-      <label for="confirmPassword">Confirm Password</label>
+      <div *ngIf="isFieldTextMissing(registerForm, 'password')">Password is required.</div>
+      <div *ngIf="password.touched && password.errors?.['minlength']">Password must be at least 5 characters long.</div>
+
+      <label for="rePassword">Confirm Password</label>
       <input
         type="password"
-        id="confirmPassword"
-        name="confirmPassword"
-        placeholder="Confirm your password"
+        id="rePassword"
+        name="rePassword"
+        ngModel
+        #rePassword="ngModel"
         required
       />
-  
-      <button type="submit">Register</button>
-      <p class="login-link">
-        Already have an account? <a routerLink="/login">Login here</a>
-      </p>
-    </form>
-  </div>
-  
+      <div *ngIf="isFieldTextMissing(registerForm, 'rePassword')">Confirm Password is required.</div>
+      <div *ngIf="isPasswordMismatch(registerForm)">Passwords do not match.</div>
+    </div>
+
+    <button type="submit" [disabled]="registerForm.invalid">Register</button>
+
+    <p class="login-link">
+      Already have an account?
+      <a routerLink="/login" routerLinkActive="active">Login here</a>
+    </p>
+  </form>
+</div>
