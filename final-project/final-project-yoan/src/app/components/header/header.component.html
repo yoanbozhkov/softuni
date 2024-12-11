@@ -1,17 +1,21 @@
 <div class="forum-header">
-    <div class="header-container">
-      <div class="logo">
-        🎾 Tennis Forum
+  <div class="header-container">
+    <div class="logo">
+      🎾 Tennis Forum
+    </div>
+    <nav class="nav-links">
+      <div class="nav-center">
+        <a routerLink="/home" routerLinkActive="active">Home</a>
+        <a routerLink="/post" routerLinkActive="active">Posts</a>
       </div>
-      <nav class="nav-links">
-        <div class="nav-center">
-          <a routerLink="/home" routerLinkActive="active">Home</a>
-          <a routerLink="/post" routerLinkActive="active">Posts</a>
-        </div>
-        <div class="nav-right">
+      <div class="nav-right">
+        @if(isLoggedIn) {
+          <a (click)="logout()" routerLink="/home">Logout</a>
+        } @else { 
           <a routerLink="/login" routerLinkActive="active">Login</a>
           <a routerLink="/register" routerLinkActive="active">Register</a>
-        </div>
-      </nav>
-    </div>
+        }
+      </div>
+    </nav>
+  </div>
 </div>
