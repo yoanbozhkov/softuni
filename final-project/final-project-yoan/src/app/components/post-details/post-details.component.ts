@@ -5,6 +5,8 @@ import { PostService } from '../../post.service';
 import { Comment } from '../../types/comment';
 import { Post } from '../../types/post';
 import { forkJoin } from 'rxjs';
+import { User } from '../../types/user';
+import { UserService } from '../../user.service';
 
 @Component({
   selector: 'app-post-details',
@@ -19,23 +21,17 @@ export class PostDetailsComponent implements OnInit {
     title: '',
     description: '',
     _id: '',
-    postCreator: {
-      _id: '',
-      username: '',
-      email: '',
-      firstName: '',
-      lastName: '',
-      created_at: '',
-      updatedAt: '',
-    },
+    postCreator: '',
     postComments: [],
     created_at: '',
     updatedAt: '',
   };
+  user: User | undefined = undefined;
   deleted: boolean = false;
   constructor(
     private route: ActivatedRoute,
-    private postService: PostService
+    private postService: PostService,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
@@ -45,9 +41,11 @@ export class PostDetailsComponent implements OnInit {
         forkJoin([
           this.postService.getPostById(postId),
           this.postService.getCommentsForPost(postId),
-        ]).subscribe(([post, comments]) => {
+          this.userService.getProfile(),
+        ]).subscribe(([post, comments, user]) => {
           this.post = post;
           this.comments = comments;
+          this.user = user;
         });
       }
     });
