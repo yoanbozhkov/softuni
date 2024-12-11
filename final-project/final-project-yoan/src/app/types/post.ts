@@ -4,7 +4,7 @@ export interface Post {
   _id: string;
   title: string;
   description: string;
-  postCreator: User;
+  postCreator: string;
   postComments: string[];
   created_at: string;
   updatedAt: string;
