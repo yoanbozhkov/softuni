@@ -1,31 +1,36 @@
 <div class="create-post-container">
-    <form class="create-post-form" (ngSubmit)="createPost()">
-      <h2>Post Details</h2>
-      <label for="title">Title</label>
-      <input
-        type="text"
-        id="title"
-        name="title"
-        [(ngModel)]="post.title"
-        placeholder="Enter post title"
-        required
-      />
-  
-      <label for="description">Description</label>
-      <textarea
-        id="description"
-        name="description"
-        [(ngModel)]="post.description"
-        placeholder="Enter post description"
-        required
-        rows="4"
-      ></textarea>
-  
-      <button type="submit">Create Post</button>
-      <p class="cancel-link">
-        Want to go back? 
-        <a routerLink="/post" routerLinkActive="active" aria-label="Go back to forums">Cancel</a>
-      </p>
-    </form>
-  </div>
-  
+  <form class="create-post-form" #createPostForm="ngForm" (ngSubmit)="createPost()">
+    <h2>Post Details</h2>
+    
+    <label for="title">Title</label>
+    <input
+      type="text"
+      id="title"
+      name="title"
+      [(ngModel)]="post.title"
+      placeholder="Enter post title"
+      required
+      #title="ngModel"
+    />
+    <div *ngIf="title.invalid && title.touched" class="error-message">Title is required.</div>
+
+    <label for="description">Description</label>
+    <textarea
+      id="description"
+      name="description"
+      [(ngModel)]="post.description"
+      placeholder="Enter post description"
+      required
+      rows="4"
+      #description="ngModel"
+    ></textarea>
+    <div *ngIf="description.invalid && description.touched" class="error-message">Description is required.</div>
+
+    <button type="submit" [disabled]="createPostForm.invalid">Create Post</button>
+    
+    <p class="cancel-link">
+      Want to go back? 
+      <a routerLink="/post" routerLinkActive="active" aria-label="Go back to forums">Cancel</a>
+    </p>
+  </form>
+</div>

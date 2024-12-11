@@ -1,21 +1,24 @@
 <div class="create-comment-container">
-    <form class="create-comment-form" (ngSubmit)="submitComment()">
-      <h2>Create Comment</h2>
-      <label for="comment">Comment</label>
-      <textarea
-        id="comment"
-        name="comment"
-        placeholder="Enter your comment"
-        [(ngModel)]="comment.content"
-        required
-        rows="4"
-      ></textarea>
-  
-      <button type="submit">Submit Comment</button>
-      <p class="cancel-link">
-        Want to go back? 
-        <a [routerLink]="['/post', postId, 'comments']" routerLinkActive="active" aria-label="Go back to forums">Cancel</a>
-      </p>
-    </form>
-  </div>
-  
+  <form class="create-comment-form" #createCommentForm="ngForm" (ngSubmit)="submitComment()">
+    <h2>Create Comment</h2>
+    
+    <label for="comment">Comment</label>
+    <textarea
+      id="comment"
+      name="comment"
+      placeholder="Enter your comment"
+      [(ngModel)]="comment.content"
+      required
+      rows="4"
+      #content="ngModel"
+    ></textarea>
+    <div *ngIf="content.invalid && content.touched" class="error-message">Comment is required.</div>
+
+    <button type="submit" [disabled]="createCommentForm.invalid">Submit Comment</button>
+    
+    <p class="cancel-link">
+      Want to go back? 
+      <a [routerLink]="['/post', postId, 'comments']" routerLinkActive="active" aria-label="Go back to forums">Cancel</a>
+    </p>
+  </form>
+</div>
