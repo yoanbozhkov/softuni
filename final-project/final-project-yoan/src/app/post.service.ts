@@ -10,56 +10,52 @@ import { Comment } from './types/comment';
 export class PostService {
   constructor(private http: HttpClient) {}
 
-  private readonly apiUrl = 'http://localhost:5000/api/posts';
-
-  getLatestPosts() {
-    return this.http.get<Post[]>(`${this.apiUrl}/latest`);
+  getLatestPosts(): Observable<Post[]> {
+    return this.http.get<Post[]>('/api/posts/latest');
   }
 
   getCommentsForPost(postId: string): Observable<Comment[]> {
-    return this.http.get<Comment[]>(`${this.apiUrl}/${postId}/comments`);
+    return this.http.get<Comment[]>(`/api/posts/${postId}/comments`);
   }
 
   getPostById(postId: string): Observable<Post> {
-    return this.http.get<Post>(`${this.apiUrl}/${postId}`);
+    return this.http.get<Post>(`/api/posts/${postId}`);
   }
 
   getCommentById(commentId: string): Observable<Comment> {
-    return this.http.get<Comment>(`${this.apiUrl}/comment/${commentId}`);
+    return this.http.get<Comment>(`/api/posts/comment/${commentId}`);
   }
 
   deletePostById(postId: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${postId}`);
+    return this.http.delete<void>(`/api/posts/${postId}`);
   }
 
   deleteComment(commentId: string, postId: string): Observable<void> {
-    return this.http.delete<void>(
-      `${this.apiUrl}/${postId}/comments/${commentId}`
-    );
+    return this.http.delete<void>(`/api/posts/${postId}/comments/${commentId}`);
   }
 
   createPost(post: { title: string; description: string }): Observable<Post> {
-    return this.http.post<Post>(this.apiUrl, post);
+    return this.http.post<Post>('/api/posts', post);
   }
 
   createComment(
     comment: { content: string },
     postId: string
   ): Observable<Comment> {
-    return this.http.post<Comment>(`${this.apiUrl}/${postId}/comment`, comment);
+    return this.http.post<Comment>(`/api/posts/${postId}/comment`, comment);
   }
 
   updatePost(
     postId: string,
     post: { title: string; description: string }
   ): Observable<Post> {
-    return this.http.put<Post>(`${this.apiUrl}/${postId}`, post);
+    return this.http.put<Post>(`/api/posts/${postId}`, post);
   }
 
   updateComment(
     commentId: string,
     comment: { content: string }
-  ): Observable<Post> {
-    return this.http.put<Post>(`${this.apiUrl}/comments/${commentId}`, comment);
+  ): Observable<Comment> {
+    return this.http.put<Comment>(`/api/posts/comments/${commentId}`, comment);
   }
 }
