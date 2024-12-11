@@ -23,7 +23,6 @@ export class ProfileComponent implements OnInit {
     created_at: '',
     updatedAt: '',
   };
-  originalUserData: any;
 
   constructor(private userService: UserService) {}
 
@@ -34,8 +33,6 @@ export class ProfileComponent implements OnInit {
   loadUserProfile(): void {
     this.userService.getProfile().subscribe((data) => {
       this.user = data;
-      console.log(this.user);
-      this.originalUserData = { ...data };
     });
   }
 
