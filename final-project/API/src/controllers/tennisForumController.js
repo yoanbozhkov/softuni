@@ -25,7 +25,7 @@ router.get("/:id/", async (req, res) => {
 });
 
 // Get single Comment
-router.get("/comment/:commentId", isAuth, async (req, res) => {
+router.get("/comment/:commentId", async (req, res) => {
   const commentId = req.params.commentId;
   try {
     const comment = await tennisForumService.getCommentById(commentId);
@@ -36,7 +36,7 @@ router.get("/comment/:commentId", isAuth, async (req, res) => {
 });
 
 // Get Comments for a single Post
-router.get("/:id/comments", isAuth, async (req, res) => {
+router.get("/:id/comments", async (req, res) => {
   const postId = req.params.id;
   try {
     const commentsForPost = await tennisForumService.getCommentsForPost(postId);

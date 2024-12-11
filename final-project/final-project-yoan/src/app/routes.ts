@@ -32,7 +32,6 @@ export const appRoutes: Routes = [
       {
         path: ':postId/comments',
         component: PostDetailsComponent,
-        canActivate: [AuthGuard],
       },
       {
         path: ':postId/comments/create-comment',

@@ -26,7 +26,7 @@ export class PostDetailsComponent implements OnInit {
     created_at: '',
     updatedAt: '',
   };
-  user: User | undefined = undefined;
+  user: User | undefined | null;
   deleted: boolean = false;
   constructor(
     private route: ActivatedRoute,
@@ -41,11 +41,10 @@ export class PostDetailsComponent implements OnInit {
         forkJoin([
           this.postService.getPostById(postId),
           this.postService.getCommentsForPost(postId),
-          this.userService.getProfile(),
-        ]).subscribe(([post, comments, user]) => {
+        ]).subscribe(([post, comments]) => {
           this.post = post;
           this.comments = comments;
-          this.user = user;
+          this.user = this.userService.user;
         });
       }
     });
