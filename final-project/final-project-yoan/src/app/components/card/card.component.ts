@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PostService } from '../../post.service';
 import { Post } from '../../types/post';
 import { User } from '../../types/user';
@@ -15,7 +15,8 @@ import { User } from '../../types/user';
 export class CardComponent {
   constructor(
     private postService: PostService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
   deleted: boolean = false;
   @Input()
@@ -27,6 +28,11 @@ export class CardComponent {
   deletePost(postId: string) {
     this.postService.deletePostById(postId).subscribe(() => {
       this.deleted = true;
+      this.router
+        .navigateByUrl('/refresh', { skipLocationChange: true })
+        .then(() => {
+          this.router.navigate(['/post']);
+        });
     });
   }
 }

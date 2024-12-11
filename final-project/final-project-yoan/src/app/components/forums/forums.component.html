@@ -1,5 +1,7 @@
 <div class="wrapper">
+  @if(!!user) {
     <button class="create-post-button" routerLink="/post/create-post" routerLinkActive="active">Create Post</button>
+  }
     <div class="card-container">
       <app-card *ngFor="let post of posts" [post]="post" [user] ="user"></app-card>
     </div>
