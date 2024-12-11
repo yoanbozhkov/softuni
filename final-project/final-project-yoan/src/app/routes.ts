@@ -10,6 +10,7 @@ import { CreateCommentComponent } from './components/create-comment/create-comme
 import { EditPostComponent } from './edit-post/edit-post.component';
 import { EditCommentComponent } from './edit-comment/edit-comment.component';
 import { ProfileComponent } from './my-profile/my-profile.component';
+import { AuthGuard } from './auth.guard';
 
 export const appRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -17,22 +18,36 @@ export const appRoutes: Routes = [
   {
     path: 'post',
     children: [
-      { path: '', component: ForumsComponent },
-      { path: 'create-post', component: CreatePostComponent },
-      { path: ':postId/edit-post', component: EditPostComponent },
-      { path: ':postId/comments', component: PostDetailsComponent },
+      { path: '', component: ForumsComponent, canActivate: [AuthGuard] },
+      {
+        path: 'create-post',
+        component: CreatePostComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: ':postId/edit-post',
+        component: EditPostComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: ':postId/comments',
+        component: PostDetailsComponent,
+        canActivate: [AuthGuard],
+      },
       {
         path: ':postId/comments/create-comment',
         component: CreateCommentComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: ':postId/comments/:commentId/edit-comment',
         component: EditCommentComponent,
+        canActivate: [AuthGuard],
       },
     ],
   },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'my-profile', component: ProfileComponent },
+  { path: 'my-profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: 'home' },
 ];
