@@ -16,7 +16,7 @@
   
       <p class="cancel-link">
         Want to go back?
-        <a  aria-label="Go back to post comments">Cancel</a>
+        <a  [routerLink]="['/post',comment.commentForPost, 'comments']" aria-label="Go back to post comments">Cancel</a>
       </p>
     </form>
   </div>
