@@ -24,6 +24,16 @@ router.get("/:id/", async (req, res) => {
   }
 });
 
+router.get("/comment/:commentId", async (req, res) => {
+  const commentId = req.params.commentId;
+  try {
+    const comment = await tennisForumService.getCommentById(commentId);
+    res.status(200).json(comment);
+  } catch (error) {
+    res.status(400).send({ message: error.message });
+  }
+});
+
 // Get Comments for a single Post
 router.get("/:id/comments", async (req, res) => {
   const postId = req.params.id;
@@ -36,15 +46,15 @@ router.get("/:id/comments", async (req, res) => {
 });
 
 // Create a Post
-router.post("/", isAuth, async (req, res) => {
+router.post("/", async (req, res) => {
   const { title, description } = req.body;
-  const userId = req.user._id;
+  // const userId = req.user._id;
 
   try {
     const createdPost = await tennisForumService.createPost({
       title,
       description,
-      postCreator: userId,
+      postCreator: "67574fb71b9ab941005b382e",
     });
 
     res.status(200).send(createdPost);
@@ -54,16 +64,16 @@ router.post("/", isAuth, async (req, res) => {
 });
 
 // Create a Comment within a Post
-router.post("/:id/comment", isAuth, async (req, res) => {
+router.post("/:id/comment", async (req, res) => {
   const { content } = req.body;
   const postId = req.params.id;
-  const userId = req.user._id;
+  // const userId = req.user._id;
 
   try {
     const createComment = await tennisForumService.createComment(
       postId,
       content,
-      userId
+      "67574fb71b9ab941005b382e"
     );
 
     res.status(200).send(createComment);
@@ -73,17 +83,17 @@ router.post("/:id/comment", isAuth, async (req, res) => {
 });
 
 // Updates a Post
-router.put("/:id", isAuth, async (req, res) => {
+router.put("/:id", async (req, res) => {
   const postId = req.params.id;
   const { title, description } = req.body;
 
   try {
     const post = await tennisForumService.getPostById(postId);
 
-    if (req?.user._id != post.postCreator) {
-      res.status(401).send("Not Authorized");
-      return;
-    }
+    // if (req?.user._id != post.postCreator) {
+    //   res.status(401).send("Not Authorized");
+    //   return;
+    // }
 
     const updatedPost = await tennisForumService.updatePost(
       postId,
@@ -98,17 +108,17 @@ router.put("/:id", isAuth, async (req, res) => {
 });
 
 // Updates a Comment
-router.put("/comments/:id", isAuth, async (req, res) => {
+router.put("/comments/:id", async (req, res) => {
   const commentId = req.params.id;
   const { content } = req.body;
 
   try {
     const comment = await tennisForumService.getCommentById(commentId);
 
-    if (req?.user._id != comment.commentCreator) {
-      res.status(401).send("Not Authorized");
-      return;
-    }
+    // if (req?.user._id != comment.commentCreator) {
+    //   res.status(401).send("Not Authorized");
+    //   return;
+    // }
 
     const updatedPost = await tennisForumService.updateComment(
       commentId,
@@ -122,32 +132,32 @@ router.put("/comments/:id", isAuth, async (req, res) => {
 });
 
 // Delete a Post
-router.delete("/:id", isAuth, async (req, res) => {
+router.delete("/:id", async (req, res) => {
   const postId = req.params.id;
   try {
     const post = await tennisForumService.getPostById(postId);
-    if (req?.user._id != post.postCreator) {
-      res.status(401).send("Not Authorized");
-      return;
-    }
+    // if (req?.user._id != post.postCreator) {
+    //   res.status(401).send("Not Authorized");
+    //   return;
+    // }
     const deletePost = await tennisForumService.deletePost(postId);
     res.status(200).send(deletePost);
   } catch (error) {
     res.status(400).send({ message: error.message });
   }
 });
-
+//TODO: add missing AUTH + encryption
 // Delete a Comment
-router.delete("/:postId/comments/:id", isAuth, async (req, res) => {
+router.delete("/:postId/comments/:id", async (req, res) => {
   const commentId = req.params.id;
   const postId = req.params.postId;
   try {
     const comment = await tennisForumService.getCommentById(commentId);
 
-    if (req?.user._id != comment.commentCreator) {
-      res.status(401).send("Not Authorized");
-      return;
-    }
+    // if (req?.user._id != comment.commentCreator) {
+    //   res.status(401).send("Not Authorized");
+    //   return;
+    // }
 
     const deletedComment = await tennisForumService.deleteComment(
       commentId,
