@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { PostService } from '../../post.service';
 import { Post } from '../../types/post';
+import { User } from '../../types/user';
 
 @Component({
   selector: 'app-card',
@@ -19,6 +20,9 @@ export class CardComponent {
   deleted: boolean = false;
   @Input()
   post!: Post;
+
+  @Input()
+  user: User | undefined;
 
   deletePost(postId: string) {
     this.postService.deletePostById(postId).subscribe(() => {

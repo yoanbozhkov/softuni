@@ -8,8 +8,10 @@
   </div>
   <div class="card-footer">
     <button class="view-button" [routerLink]="['/post', post._id, 'comments']" routerLinkActive="active">View</button>
+    @if(user?._id === post.postCreator){
     <button class="view-button" [routerLink]="['/post', post._id, 'edit-post']" >Edit</button>
     <button class="view-button" (click) = "deletePost(post._id)">Delete</button>
+    }
   </div>
 </div>
 </div>
