@@ -18,7 +18,7 @@ export const appRoutes: Routes = [
   {
     path: 'post',
     children: [
-      { path: '', component: ForumsComponent, canActivate: [AuthGuard] },
+      { path: '', component: ForumsComponent },
       {
         path: 'create-post',
         component: CreatePostComponent,

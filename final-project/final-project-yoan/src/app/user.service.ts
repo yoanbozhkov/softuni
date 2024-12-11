@@ -11,7 +11,7 @@ export class UserService implements OnDestroy {
   private user$ = this.user$$.asObservable();
 
   USER_KEY = '[user]';
-  user: User | null = null;
+  user: User | undefined | null = undefined;
   userSubscription: Subscription | null = null;
 
   get isLogged(): boolean {

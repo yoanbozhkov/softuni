@@ -22,7 +22,7 @@ export class CardComponent {
   post!: Post;
 
   @Input()
-  user: User | undefined;
+  user: User | undefined | null;
 
   deletePost(postId: string) {
     this.postService.deletePostById(postId).subscribe(() => {

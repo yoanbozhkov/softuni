@@ -17,7 +17,7 @@ import { forkJoin } from 'rxjs';
 })
 export class ForumsComponent implements OnInit {
   posts: Post[] = [];
-  user: User | undefined = undefined;
+  user: User | undefined | null = undefined;
 
   constructor(
     private postService: PostService,
@@ -25,12 +25,9 @@ export class ForumsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    forkJoin({
-      latestPosts: this.postService.getLatestPosts(),
-      user: this.userService.getProfile(),
-    }).subscribe(({ latestPosts, user }) => {
-      this.posts = latestPosts;
-      this.user = user;
+    this.postService.getLatestPosts().subscribe((post) => {
+      this.posts = post;
+      this.user = this.userService.user;
     });
   }
 }
