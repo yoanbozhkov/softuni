@@ -1,0 +1,70 @@
+<div class="profile-container">
+    <form #profileForm="ngForm" class="profile-form">
+      <h2>My Profile</h2>
+  
+      <label for="username">Username</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        ngModel
+        #username="ngModel"
+        disabled="true"
+        minlength="5"
+        [value]="user.username"
+      />
+      <div *ngIf="username.touched && username.errors?.['required']">
+        Username is required.
+      </div>
+      <div *ngIf="username.errors?.['minlength']">
+        Username must be at least 5 characters long.
+      </div>
+  
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        ngModel
+        disabled="true"
+        #email="ngModel"
+     
+        required
+        [value]="user.email"
+      />
+      <div *ngIf=" email.touched && email.errors?.['required']">
+        Email is required.
+      </div>
+  
+      <label for="firstName">First Name</label>
+      <input
+        type="text"
+        id="firstName"
+        name="firstName"
+        ngModel
+        disabled="true"
+        #firstName="ngModel"
+   
+        required
+        [value]="user.firstName"
+      />
+      <div *ngIf="firstName.touched && firstName.errors?.['required']">
+        First Name is required.
+      </div>
+  
+      <label for="lastName">Last Name</label>
+      <input 
+        type="text"
+        id="lastName"
+        name="lastName"
+        ngModel
+        #lastName="ngModel"
+        disabled="true"
+        [value]="user.lastName"
+      />
+      <div *ngIf=" lastName.touched && lastName.errors?.['required']">
+        Last Name is required.
+      </div>
+    </form>
+  </div>
+  

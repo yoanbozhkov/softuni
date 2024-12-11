@@ -9,20 +9,11 @@ import { PostDetailsComponent } from './components/post-details/post-details.com
 import { CreateCommentComponent } from './components/create-comment/create-comment.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
 import { EditCommentComponent } from './edit-comment/edit-comment.component';
+import { ProfileComponent } from './my-profile/my-profile.component';
 
 export const appRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomePageComponent },
-  // {
-  //   path: 'post',
-  //   children: [
-  //     { path: '', component: ForumsComponent },
-  //     {
-  //       path: ':postId/comments',
-  //       component: PostDetailsComponent,
-  //     },
-  //   ],
-  // },
   {
     path: 'post',
     children: [
@@ -42,8 +33,6 @@ export const appRoutes: Routes = [
   },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-
-  // { path: 'create-post', component: CreatePostComponent },
-  // { path: 'create-comment', component: CreateCommentComponent },
+  { path: 'my-profile', component: ProfileComponent },
   { path: '**', redirectTo: 'home' },
 ];

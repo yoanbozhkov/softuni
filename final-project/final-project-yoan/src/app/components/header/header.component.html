@@ -11,6 +11,7 @@
       <div class="nav-right">
         @if(isLoggedIn) {
           <a (click)="logout()" routerLink="/home">Logout</a>
+          <a routerLink="/my-profile">My Profile</a>
         } @else { 
           <a routerLink="/login" routerLinkActive="active">Login</a>
           <a routerLink="/register" routerLinkActive="active">Register</a>
